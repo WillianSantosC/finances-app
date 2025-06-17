@@ -1,0 +1,22 @@
+import { render } from '@testing-library/react-native';
+import {{pascalCase name}} from '.';
+
+describe('<{{pascalCase name}} />', () => {
+  it('should render correctly', () => {
+    const { getByText } = render(<{{pascalCase name}} />);
+    const textElement = getByText('Hello World');
+    expect(textElement).toBeTruthy();
+  });
+
+  it('should have accessibilityRole header', () => {
+    const { getByAccessibilityHint } = render(<{{pascalCase name}} />);
+    const header = getByAccessibilityHint('header');
+    expect(header).toBeTruthy();
+    expect(header.props.children).toBe('Hello World');
+  });
+
+  it('should match snapshot', () => {
+    const tree = render(<{{pascalCase name}} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
