@@ -5,21 +5,21 @@ exports[`<Input /> should match snapshot with error 1`] = `
   className="w-[90%] mb-4"
 >
   <Text
-    className="mb-1 text-base text-[#121212] font-medium"
+    className="mb-1 text-base text-black font-medium"
   >
     Senha
   </Text>
   <View
-    className="flex-row items-center rounded-lg bg-white px-3 border border-[#FF375B]"
+    className="flex-row items-center rounded-lg bg-white px-3 border border-red"
   >
     <TextInput
-      className="flex-1 h-[45px] text-[17px] text-[#121212]"
+      className="flex-1 h-[45px] text-[17px] text-black"
       placeholder="Digite sua senha"
       placeholderTextColor="#A1A1A1"
     />
   </View>
   <Text
-    className="mt-1 text-sm text-[#FF375B]"
+    className="mt-1 text-sm text-red"
   >
     Senha inválida
   </Text>
@@ -31,7 +31,7 @@ exports[`<Input /> should match snapshot without error 1`] = `
   className="w-[90%] mb-4"
 >
   <Text
-    className="mb-1 text-base text-[#121212] font-medium"
+    className="mb-1 text-base text-black font-medium"
   >
     Senha
   </Text>
@@ -39,7 +39,7 @@ exports[`<Input /> should match snapshot without error 1`] = `
     className="flex-row items-center rounded-lg bg-white px-3 border border-[#E8E8E8]"
   >
     <TextInput
-      className="flex-1 h-[45px] text-[17px] text-[#121212]"
+      className="flex-1 h-[45px] text-[17px] text-black"
       placeholder="Digite sua senha"
       placeholderTextColor="#A1A1A1"
     />
