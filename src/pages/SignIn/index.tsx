@@ -1,14 +1,8 @@
-import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { styles } from './styles';
+import Fontisto from '@expo/vector-icons/Fontisto';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Image, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
 
+import { Input } from '@/components/Input';
 import { StackParamList } from '@/routes/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -24,13 +18,15 @@ const SignIn = () => {
         className="flex-1 items-center justify-center">
         <Image className="mb-[25px]" source={require('../../assets/Logo.png')} />
 
-        <View className={styles.areaInput}>
-          <TextInput className={styles.input} placeholder="Seu e-mail" />
-        </View>
+        <Input
+          placeholder="Seu e-mail"
+          icon={<Fontisto name="email" size={25} color="#121212" />}
+        />
 
-        <View className={styles.areaInput}>
-          <TextInput className={styles.input} placeholder="Sua senha" />
-        </View>
+        <Input
+          placeholder="Sua senha"
+          icon={<MaterialIcons name="lock" size={25} color="#121212" />}
+        />
 
         <TouchableOpacity
           activeOpacity={0.8}

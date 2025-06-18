@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> should match snapshot with error 1`] = `
+<View
+  className="w-[90%] mb-4"
+>
+  <Text
+    className="mb-1 text-base text-[#121212] font-medium"
+  >
+    Senha
+  </Text>
+  <View
+    className="flex-row items-center rounded-lg bg-white px-3 border border-[#FF375B]"
+  >
+    <TextInput
+      className="flex-1 h-[45px] text-[17px] text-[#121212]"
+      placeholder="Digite sua senha"
+      placeholderTextColor="#A1A1A1"
+    />
+  </View>
+  <Text
+    className="mt-1 text-sm text-[#FF375B]"
+  >
+    Senha inválida
+  </Text>
+</View>
+`;
+
+exports[`<Input /> should match snapshot without error 1`] = `
+<View
+  className="w-[90%] mb-4"
+>
+  <Text
+    className="mb-1 text-base text-[#121212] font-medium"
+  >
+    Senha
+  </Text>
+  <View
+    className="flex-row items-center rounded-lg bg-white px-3 border border-[#E8E8E8]"
+  >
+    <TextInput
+      className="flex-1 h-[45px] text-[17px] text-[#121212]"
+      placeholder="Digite sua senha"
+      placeholderTextColor="#A1A1A1"
+    />
+  </View>
+</View>
+`;
