@@ -1,14 +1,11 @@
-import { useAuthStore } from '@/stores/useAuthStore';
-import { Button, Text, View } from 'react-native';
+import Header from '@/components/Header';
+import { SafeAreaView } from 'react-native';
 
 const Home = () => {
-  const signOut = useAuthStore((state) => state.signOut);
-
   return (
-    <View>
-      <Text>Home</Text>
-      <Button title="Sair da conta" onPress={() => signOut()} />
-    </View>
+    <SafeAreaView>
+      <Header title="Minhas Movimentações" />
+    </SafeAreaView>
   );
 };
 
