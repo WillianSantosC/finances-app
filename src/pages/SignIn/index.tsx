@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { Input } from '@/components/Input';
-import { StackParamList } from '@/routes/types';
+import { AuthStackParamsList } from '@/routes/types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -38,7 +38,7 @@ export default function SignIn() {
   const signIn = useAuthStore((state) => state.signIn);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamsList>>();
 
   const { control, setValue, trigger, handleSubmit, formState } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -51,7 +51,6 @@ export default function SignIn() {
   const onSubmit = async (data: FormData) => {
     try {
       await signIn(data.email, data.password);
-      // navigation.navigate('Home');
     } catch (error) {
       console.error(error);
     }

@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useRHFRegister } from '@/hooks/useRHFRegister';
-import { StackParamList } from '@/routes/types';
+import { AuthStackParamsList } from '@/routes/types';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -42,7 +42,7 @@ export default function SignUp() {
   const signUp = useAuthStore((state) => state.signUp);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamsList>>();
 
   const { control, setValue, trigger, handleSubmit, formState } = useForm<FormData>({
     resolver: yupResolver(schema),
