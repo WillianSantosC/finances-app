@@ -1,110 +1,138 @@
-import api from '@/services/api';
-import { createZustandStorage } from '@/utils/asyncStorageZustand';
 import Toast from 'react-native-toast-message';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import api from '@/services/api';
+import { setupInterceptors } from '@/services/apiAuth';
+import { createZustandStorage } from '@/utils/asyncStorageZustand';
+
+// ============
+// Tipagem
+// ============
 type User = {
   id: string;
   name: string;
   email: string;
 };
 
-export type AuthStore = {
+type AuthState = {
   user: User | null;
   token: string | null;
+};
+
+type AuthActions = {
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (name: string, email: string, password: string) => Promise<void>;
   signOut: () => void;
 };
 
-export const useAuthStore = create(
-  persist<AuthStore>(
-    (set) => ({
-      user: null,
-      token: null,
-      isLoading: false,
+export type AuthStore = AuthState & AuthActions;
 
-      signIn: async (email, password) => {
-        try {
-          set({ isLoading: true });
-
-          const response = await api.post('/login', {
-            email,
-            password,
-          });
-
-          const { id, name, token } = response.data;
-
-          set({
-            user: {
-              id,
-              name,
-              email,
-            },
-            token,
-          });
-
-          Toast.show({
-            type: 'success',
-            text1: 'Login realizado com sucesso!',
-          });
-        } catch (error) {
-          console.error('Erro no login:', error);
+// ============
+// Store
+// ============
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set, get) => {
+      //! Setup dos interceptors (executado uma vez no init)
+      setupInterceptors(
+        () => get().token,
+        () => {
           Toast.show({
             type: 'error',
-            text1: 'Erro no login',
-            text2: 'Verifique suas credenciais.',
+            text1: 'Sessão expirada',
+            text2: 'Por favor, faça login novamente.',
           });
-          throw error;
-        } finally {
-          set({ isLoading: false });
+          get().signOut();
         }
-      },
+      );
 
-      signUp: async (name, email, password) => {
-        try {
-          set({ isLoading: true });
+      const authState: AuthState = {
+        user: null,
+        token: null,
+      };
 
-          const response = await api.post('/users', {
-            name,
-            email,
-            password,
-          });
+      const authActions: AuthActions = {
+        isLoading: false,
 
-          const { id } = response.data;
+        signIn: async (email, password) => {
+          try {
+            set({ isLoading: true });
 
-          set({
-            user: {
-              id,
-              name,
-              email,
-            },
-            token: null,
-          });
+            const response = await api.post('/login', { email, password });
+            const { id, name, token } = response.data;
+
+            set({
+              user: { id, name, email },
+              token,
+            });
+
+            Toast.show({
+              type: 'success',
+              text1: 'Login realizado com sucesso!',
+            });
+          } catch (error) {
+            Toast.show({
+              type: 'error',
+              text1: 'Erro no login',
+              text2: 'Verifique suas credenciais.',
+            });
+            throw error;
+          } finally {
+            set({ isLoading: false });
+          }
+        },
+
+        signUp: async (name, email, password) => {
+          try {
+            set({ isLoading: true });
+
+            const response = await api.post('/users', { name, email, password });
+            const { id } = response.data;
+
+            set({
+              user: { id, name, email },
+              token: null,
+            });
+
+            Toast.show({
+              type: 'success',
+              text1: 'Cadastro realizado com sucesso!',
+            });
+          } catch (error) {
+            Toast.show({
+              type: 'error',
+              text1: 'Erro no cadastro',
+              text2: 'Tente novamente.',
+            });
+            throw error;
+          } finally {
+            set({ isLoading: false });
+          }
+        },
+
+        signOut: () => {
+          set({ user: null, token: null });
           Toast.show({
-            type: 'success',
-            text1: 'Cadastro realizado com sucesso!',
+            type: 'info',
+            text1: 'Sessão encerrada',
           });
-        } catch (error) {
-          console.error('Erro no cadastro:', error);
-          Toast.show({
-            type: 'error',
-            text1: 'Erro no cadastro',
-            text2: 'Tente novamente.',
-          });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      },
+        },
+      };
 
-      signOut: () => set({ user: null, token: null }),
-    }),
+      return {
+        ...authState,
+        ...authActions,
+      };
+    },
     {
       name: 'auth-storage',
-      storage: createZustandStorage<AuthStore>(),
+      storage: createZustandStorage<AuthState>(),
+      partialize: (state) => ({
+        user: state.user,
+        token: state.token,
+      }),
     }
   )
 );

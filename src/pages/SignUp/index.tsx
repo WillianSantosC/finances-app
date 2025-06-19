@@ -2,14 +2,24 @@ import { Input } from '@/components/Input';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { KeyboardAvoidingView, Platform, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useRHFRegister } from '@/hooks/useRHFRegister';
+import { StackParamList } from '@/routes/types';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type FormData = {
   name: string;
@@ -32,6 +42,8 @@ export default function SignUp() {
   const signUp = useAuthStore((state) => state.signUp);
   const isLoading = useAuthStore((state) => state.isLoading);
 
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
+
   const { control, setValue, trigger, handleSubmit, formState } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -44,6 +56,7 @@ export default function SignUp() {
   const onSubmit = async (data: FormData) => {
     try {
       await signUp(data.name, data.email, data.password);
+      navigation.navigate('SignIn');
     } catch (error) {
       console.error(error);
     }
@@ -65,6 +78,7 @@ export default function SignUp() {
           placeholder="Seu e-mail"
           icon={<Fontisto name="email" size={25} color="#121212" />}
           keyboardType="email-address"
+          autoCapitalize="none"
           {...emailProps}
         />
 
@@ -79,10 +93,14 @@ export default function SignUp() {
           disabled={!formState.isValid || isLoading}
           onPress={handleSubmit(onSubmit)}
           activeOpacity={0.8}
-          className={`mt-4 h-[45px] w-[90%] items-center justify-center rounded-[8px] ${
+          className={`mt-4 h-[45px] w-[90%] flex-row items-center justify-center rounded-[8px] ${
             formState.isValid && !isLoading ? 'bg-blue' : 'bg-blue/50'
           }`}>
-          <Text className="text-[20px] text-white">Cadastrar</Text>
+          {isLoading ? (
+            <ActivityIndicator color="#3B3DBF" />
+          ) : (
+            <Text className="text-[20px] text-white">Cadastrar</Text>
+          )}
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
