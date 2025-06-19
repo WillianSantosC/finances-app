@@ -4,7 +4,7 @@ import { createJSONStorage } from 'zustand/middleware';
 /**
  * Cria um storage tipado para persistência Zustand usando AsyncStorage
  * @example
- * const storage = createZustandStorage<AuthStore>();
+ * const storage = createZustandStorage<AuthState>();
  */
 export const createZustandStorage = <T>() => {
   return createJSONStorage<T>(() => AsyncStorage);

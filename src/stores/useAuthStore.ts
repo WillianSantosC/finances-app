@@ -6,9 +6,6 @@ import api from '@/services/api';
 import { setupInterceptors } from '@/services/apiAuth';
 import { createZustandStorage } from '@/utils/asyncStorageZustand';
 
-// ============
-// Tipagem
-// ============
 type User = {
   id: string;
   name: string;
@@ -29,13 +26,10 @@ type AuthActions = {
 
 export type AuthStore = AuthState & AuthActions;
 
-// ============
-// Store
-// ============
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set, get) => {
-      //! Setup dos interceptors (executado uma vez no init)
+      //! Interceptors setup
       setupInterceptors(
         () => get().token,
         () => {
