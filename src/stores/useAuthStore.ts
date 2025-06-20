@@ -2,8 +2,8 @@ import Toast from 'react-native-toast-message';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import api from '@/services/api';
-import { setupInterceptors } from '@/services/apiAuth';
+import api from '@/infra/services/api';
+import { setupInterceptors } from '@/infra/services/apiAuth';
 import { createZustandStorage } from '@/utils/asyncStorageZustand';
 
 type User = {
