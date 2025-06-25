@@ -11,13 +11,13 @@ import {
   View,
 } from 'react-native';
 
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { AuthStackParamsList } from '@/routes/types';
 import { useRHFRegister } from '@/shared/hooks/useRHFRegister';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -39,8 +39,7 @@ const schema = yup
   .required();
 
 export default function SignUp() {
-  const signUp = useAuthStore((state) => state.signUp);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const { signUp, isLoading } = useAuth();
 
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamsList>>();
 

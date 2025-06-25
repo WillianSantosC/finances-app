@@ -1,9 +1,9 @@
 import Header from '@/components/Header';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useBalance } from '@/features/balance/hooks/useBalance';
 import { BalanceRepository } from '@/features/balance/repositories/BalanceRepository';
 import { useTransactions } from '@/features/transactions/hooks/useTransactions';
 import { TransactionRepository } from '@/features/transactions/repositories/TransactionRepository';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { ActivityIndicator, Button, FlatList, SafeAreaView, Text, View } from 'react-native';
 
 const balanceRepository = new BalanceRepository();
@@ -12,7 +12,7 @@ const transactionRepository = new TransactionRepository();
 const Home = () => {
   const today = new Date();
 
-  const signOut = useAuthStore((state) => state.signOut);
+  const { signOut } = useAuth();
 
   const { data: balance, isLoading: loadingBalance } = useBalance(balanceRepository, today);
   const { data: transactions, isLoading: loadingTransactions } = useTransactions(

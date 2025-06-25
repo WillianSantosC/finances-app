@@ -1,12 +1,10 @@
-import { useAuthStore } from '@/stores/useAuthStore';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { ActivityIndicator, View } from 'react-native';
 import AppRoutes from './app.routes';
 import AuthRoutes from './auth.routes';
 
 const Routes = () => {
-  const user = useAuthStore((state) => state.user);
-  const token = useAuthStore((state) => state.token);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const { user, token, isLoading } = useAuth();
 
   if (isLoading) {
     return (

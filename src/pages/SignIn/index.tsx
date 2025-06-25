@@ -19,8 +19,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useRHFRegister } from '@/shared/hooks/useRHFRegister';
-import { useAuthStore } from '@/stores/useAuthStore';
 
 type FormData = {
   email: string;
@@ -35,8 +35,7 @@ const schema = yup
   .required();
 
 export default function SignIn() {
-  const signIn = useAuthStore((state) => state.signIn);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const { signIn, isLoading } = useAuth();
 
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamsList>>();
 
