@@ -15,8 +15,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { useRHFRegister } from '@/hooks/useRHFRegister';
 import { AuthStackParamsList } from '@/routes/types';
+import { useRHFRegister } from '@/shared/hooks/useRHFRegister';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';

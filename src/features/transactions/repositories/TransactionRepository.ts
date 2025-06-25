@@ -1,6 +1,6 @@
-import { Transaction } from '@/domain/entities/Transaction';
-import { ITransactionRepository } from '@/domain/repositories/ITransactionRepository';
-import api from '../services/api';
+import { Transaction } from '@/features/transactions/entities/Transaction';
+import api from '@/shared/services/api';
+import { ITransactionRepository } from './ITransactionRepository';
 
 export class TransactionRepository implements ITransactionRepository {
   async list(date?: string): Promise<Transaction[]> {

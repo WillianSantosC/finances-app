@@ -1,6 +1,6 @@
-import { Balance } from '@/domain/entities/Balance';
-import { IBalanceRepository } from '@/domain/repositories/IBalanceRepository';
-import api from '../services/api';
+import api from '@/shared/services/api';
+import { Balance } from '../entities/Balance';
+import { IBalanceRepository } from './IBalanceRepository';
 
 export class BalanceRepository implements IBalanceRepository {
   async get(date?: string): Promise<Balance> {

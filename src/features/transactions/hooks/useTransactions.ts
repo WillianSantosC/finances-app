@@ -1,9 +1,9 @@
+import { useBalance } from '@/features/balance/hooks/useBalance';
+import { IBalanceRepository } from '@/features/balance/repositories/IBalanceRepository';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { Transaction } from '../entities/Transaction';
-import { IBalanceRepository } from '../repositories/IBalanceRepository';
 import { ITransactionRepository } from '../repositories/ITransactionRepository';
-import { useBalance } from './useBalance';
 
 export const useTransactions = (
   repository: ITransactionRepository,

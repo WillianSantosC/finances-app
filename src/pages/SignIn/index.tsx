@@ -19,7 +19,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { useRHFRegister } from '@/hooks/useRHFRegister';
+import { useRHFRegister } from '@/shared/hooks/useRHFRegister';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 type FormData = {

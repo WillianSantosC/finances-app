@@ -1,8 +1,8 @@
 import Header from '@/components/Header';
-import { useBalance } from '@/domain/useCases/useBalance';
-import { useTransactions } from '@/domain/useCases/useTransactions';
-import { BalanceRepository } from '@/infra/repositories/BalanceRepository';
-import { TransactionRepository } from '@/infra/repositories/TransactionRepository';
+import { useBalance } from '@/features/balance/hooks/useBalance';
+import { BalanceRepository } from '@/features/balance/repositories/BalanceRepository';
+import { useTransactions } from '@/features/transactions/hooks/useTransactions';
+import { TransactionRepository } from '@/features/transactions/repositories/TransactionRepository';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { ActivityIndicator, Button, FlatList, SafeAreaView, Text, View } from 'react-native';
 
